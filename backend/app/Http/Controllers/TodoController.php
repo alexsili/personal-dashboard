@@ -37,7 +37,24 @@ class TodoController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        $todo->completed = !$todo->completed;
+        // Dacă vine title, actualizează title-ul
+        if ($request->has('title')) {
+            $request->validate([
+                'title' => 'required|string|max:255'
+            ]);
+            $todo->title = $request->title;
+        }
+
+        // Dacă vine completed, toggle completed
+        if ($request->has('completed')) {
+            $todo->completed = $request->completed;
+        }
+
+        // Dacă nu vine nimic specific, toggle completed (comportament vechi)
+        if (!$request->has('title') && !$request->has('completed')) {
+            $todo->completed = !$todo->completed;
+        }
+
         $todo->save();
 
         return response()->json($todo->fresh());

@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
 import TodoList from './components/TodoList'
 import NotesList from './components/NotesList'
+import Weather from "./components/Weather.jsx";
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { useTheme } from "./context/ThemeContext.jsx";
 import './App.css'
 
 function App() {
+    const { theme, toggleTheme } = useTheme()
+
     // Auth state
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(localStorage.getItem('token'))
@@ -88,12 +92,16 @@ function App() {
             <header className="app-header">
                 <h1>Personal Dashboard</h1>
                 <div className="user-info">
+                    <button onClick={toggleTheme} className="theme-toggle">
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
                     <span>Welcome, {user.name}!</span>
                     <button onClick={handleLogout} className="logout-button">Logout</button>
                 </div>
             </header>
 
             <main>
+                <Weather />
                 <TodoList token={token} />
                 <NotesList token={token} />
             </main>
