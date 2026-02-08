@@ -25,6 +25,7 @@ class User extends Authenticatable
         'title',
         'completed',
         'content',
+        'default_currency',
     ];
 
     /**
@@ -58,5 +59,15 @@ class User extends Authenticatable
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

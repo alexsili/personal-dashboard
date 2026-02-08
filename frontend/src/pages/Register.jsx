@@ -1,12 +1,14 @@
 import { useState } from 'react'
-
-function Register({ onLogin, onSwitchToLogin }) {
+import { useNavigate } from 'react-router-dom'
+import './Auth.css'
+function Register({ onLogin }) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
     const API_URL = 'http://api.personal-dashboard.test/api'
 
@@ -112,7 +114,9 @@ function Register({ onLogin, onSwitchToLogin }) {
 
             <p className="auth-switch">
                 Already have an account?{' '}
-                <button onClick={onSwitchToLogin}>Login</button>
+                <button type="button" onClick={() => navigate('/login')}>
+                    Login
+                </button>
             </p>
         </div>
     )

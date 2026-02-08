@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './NotesList.css'
 
 function NotesList({ token }) {
     const [notes, setNotes] = useState([])
